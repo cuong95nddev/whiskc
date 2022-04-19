@@ -6,3 +6,17 @@ services:
     restart: always
     container_name: whiskc-auth
     hostname: whiskc-auth
+  whiskc-user:
+    build: user
+    ports:
+      - 8882:8080
+    restart: always
+    container_name: whiskc-user
+    hostname: whiskc-user
+  whiskc-comment:
+    build: comment
+    ports:
+      - 8883:8080
+    restart: always
+    container_name: whiskc-commnet
+    hostname: whiskc-commnet
