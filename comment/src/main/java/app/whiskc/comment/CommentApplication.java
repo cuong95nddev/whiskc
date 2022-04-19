@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class CommendApplication {
+public class CommentApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CommendApplication.class, args);
+        SpringApplication.run(CommentApplication.class, args);
     }
 
 
