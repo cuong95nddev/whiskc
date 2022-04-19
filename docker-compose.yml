@@ -1,0 +1,8 @@
+services:
+  whiskc-auth:
+    build: auth
+    ports:
+      - 8881:8080
+    restart: always
+    container_name: whiskc-auth
+    hostname: whiskc-auth
