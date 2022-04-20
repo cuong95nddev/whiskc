@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whiskc-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whiskc-auth
+  template:
+    metadata:
+      labels:
+        app: whiskc-auth
+    spec:
+      containers:
+        - name: whiskc-auth
+          image: registry.digitalocean.com/whiskc/whiskc_whiskc-auth
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whiskc-auth
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+      name: api
+  selector:
+    app: whiskc-auth
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whiskc-auth-ingress
+spec:
+  rules:
+    - host: auth.whiskc.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: whiskc-auth
+                port:
+                  number: 8080
