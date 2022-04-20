@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: whiskc-auth
-          image: registry.digitalocean.com/whiskc/whiskc_whiskc-auth
+          image: registry.digitalocean.com/whiskc/whiskc/auth
           ports:
             - containerPort: 8080
 ---
@@ -37,8 +37,9 @@ kind: Ingress
 metadata:
   name: whiskc-auth-ingress
 spec:
+  ingressClassName: nginx
   rules:
-    - host: auth.whiskc.xyz
+    - host: api.whiskc.xyz
       http:
         paths:
           - path: /
