@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: whiskc-auth
-          image: registry.digitalocean.com/whiskc/whiskc/auth
+          image: <IMAGE>
           ports:
             - containerPort: 8080
 ---
