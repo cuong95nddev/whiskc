@@ -16,6 +16,6 @@ public class AuthApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello Auth service!";
+        return "update something test!";
     }
 }
