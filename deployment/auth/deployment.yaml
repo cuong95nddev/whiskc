@@ -32,12 +32,33 @@ spec:
     app: whiskc-auth
   type: ClusterIP
 ---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-nginx
+spec:
+  acme:
+    email: cuong95nd@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-nginx-private-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: whiskc-auth-ingress
+  annotations:
+    cert-manager.io/issuer: letsencrypt-nginx
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.whiskc.xyz
+    secretName: letsencrypt-nginx
   rules:
     - host: api.whiskc.xyz
       http:
