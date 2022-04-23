@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: whiskc-auth
-          image: <IMAGE>
+          image: registry.digitalocean.com/whiskc/whiskc/auth
           ports:
             - containerPort: 8080
 ---
@@ -46,27 +46,3 @@ spec:
       - http01:
           ingress:
             class: nginx
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: whiskc-auth-ingress
-  annotations:
-    cert-manager.io/issuer: letsencrypt-nginx
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - api.whiskc.xyz
-    secretName: letsencrypt-nginx
-  rules:
-    - host: api.whiskc.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: whiskc-auth
-                port:
-                  number: 8080
