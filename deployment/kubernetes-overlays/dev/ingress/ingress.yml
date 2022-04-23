@@ -9,6 +9,7 @@ spec:
   tls:
     - hosts:
         - api.whiskc.xyz
+        - keycloak.whiskc.xyz
       secretName: letsencrypt-nginx
   rules:
     - host: api.whiskc.xyz
@@ -19,5 +20,15 @@ spec:
             backend:
               service:
                 name: whiskc-auth
+                port:
+                  number: 8080
+    - host: keycloak.whiskc.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak
                 port:
                   number: 8080
