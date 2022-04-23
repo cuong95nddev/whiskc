@@ -35,15 +35,23 @@ spec:
           args: ["start-dev"]
           env:
             - name: KEYCLOAK_ADMIN
-              value: "admin"
+              value: admin
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: "admin"
+              value: admin
+            - name: KC_DB
+              value: postgres
+            - name: KC_DB_URL
+              value: jdbc:postgresql://postgres:5432/keycloak
+            - name: KC_DB_SCHEMA
+              value: public
+            - name: KC_DB_USERNAME
+              value: postgres
+            - name: KC_DB_PASSWORD
+              value: postgres
             - name: KC_PROXY
               value: "edge"
           ports:
             - name: http
               containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /realms/master
-              port: 8080
+            - name: https
+              containerPort: 8443
